@@ -13,9 +13,7 @@ const fetcheachproduct=new express.Router()
 
 fetcheachproduct.post('/fetch_each_product',async(req,res)=>{
     
-    const category=req.body.category
-    const type=req.body.type
-    const model_number=req.body.model_number
+    const {category,type,model_number}=req.body
 
     var arr=model_number.match(/\d{3,}/)
     var index=arr[0]
@@ -23,7 +21,7 @@ fetcheachproduct.post('/fetch_each_product',async(req,res)=>{
 
     await eval(category).findOne({Name:category}).then(async(obj)=>{
         const arr=obj.products[type]
-       res.send(arr)
+       res.send(arr[resindex])
     })
 
 })
