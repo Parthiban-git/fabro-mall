@@ -254,10 +254,9 @@ deletewishlistrouter.post('/delete-wishlist',async(req,res)=>{
                 console.log("deleted a wishlist in a many")
             })     
 
-            cartwishlist.findOne({token}).then((obj)=>{
-
+            await cartwishlist.findOne({token}).then((obj)=>{
                 var wishlistnames=Object.keys(obj.wishlist)
-    
+        
                 res.send({wishlists:obj.wishlist,wishlistnames})
             })
     }    
@@ -269,7 +268,7 @@ deletewishlistrouter.post('/delete-wishlist',async(req,res)=>{
                     console.log("deleted the last single wishlist")
                 })
             })
-            res.send({})   
+            res.send({wishlists:{},wishlistnames:[]})
     } 
     
 
