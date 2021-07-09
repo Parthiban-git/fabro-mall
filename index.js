@@ -15,6 +15,7 @@ app.get('/',(req,res)=>{
     res.send("server side \"Deplyment Succeed\"")
 })
 
+const verifyemailrouter=require('./routers/verify-email')
 const signuprouter=require('./routers/signup')
 const signupcheckrouter=require('./routers/signupcheck') 
 
@@ -36,7 +37,7 @@ const {addtocartrouter,viewcartrouter,deletefromcartrouter}=require('./routers/c
 const {editprofilerouter,viewprofilerouter}=require('./routers/profile')
 
 //////
-app.use([signuprouter,signupcheckrouter,loginrouter,fetchhomerouter,fetchproductrouter,suggestionrouter,fetcheachproductrouter,paginationrouter,filter_sortrouter,customer_reviewrouter,createwishlistrouter,addwishlistrouter,viewwishlistrouter,deletewishproductrouter,deletewishlistrouter,replacewishlistrouter,addtocartrouter,viewcartrouter,deletefromcartrouter,editprofilerouter,viewprofilerouter,renamewishlistrouter])
+app.use([verifyemailrouter,signuprouter,signupcheckrouter,loginrouter,fetchhomerouter,fetchproductrouter,suggestionrouter,fetcheachproductrouter,paginationrouter,filter_sortrouter,customer_reviewrouter,createwishlistrouter,addwishlistrouter,viewwishlistrouter,deletewishproductrouter,deletewishlistrouter,replacewishlistrouter,addtocartrouter,viewcartrouter,deletefromcartrouter,editprofilerouter,viewprofilerouter,renamewishlistrouter])
 
 app.listen(port,()=>{
     console.log("port running")
