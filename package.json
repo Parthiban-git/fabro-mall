@@ -1,0 +1,34 @@
+{
+  "name": "fabro-mall",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Parthiban-git/fabro-mall.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Parthiban-git/fabro-mall/issues"
+  },
+  "homepage": "https://github.com/Parthiban-git/fabro-mall#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "googleapis": "^81.0.0",
+    "mongodb": "^3.6.10",
+    "mongoose": "^5.13.2",
+    "nodemailer": "^6.6.2",
+    "nodemon": "^2.0.10",
+    "router": "^1.3.5",
+    "routers": "^0.1.4",
+    "schema": "^0.2.1",
+    "validator": "^13.6.0"
+  }
+}
