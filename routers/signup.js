@@ -31,7 +31,7 @@ signuprouter.post('/signup',async(req,res)=>{
     const preuseremail=req.body.email
     const ph_number=req.body.contact
 
-    // const {country,state,address}=req.body
+    const {country,state,addressline1,addressline2,pin}=req.body
     
     const hash=bcrypt.hashSync(preuserpass,9)
 
@@ -43,9 +43,11 @@ signuprouter.post('/signup',async(req,res)=>{
         password:hash,
         contact:ph_number,
         otp,
-        // country,
-        // state,
-        // address
+        country,
+        state,
+        addressline1,
+        addressline2,
+        pin
     })
     
     await User.findOne({email:req.body.email}).then(async(user)=>{

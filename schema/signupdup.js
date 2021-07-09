@@ -41,16 +41,22 @@ const userschema=new Shema({
     },contact:{
         type:String,
         required:true        
+    },
+    addressline1:{
+        type:String
+    },
+    addresline2:{
+        type:String
+    },
+    state:{
+        type:String
+    },
+    country:{
+        type:String
+    },
+    pin:{
+        type:Number
     }
-    // address:{
-    //     type:String
-    // },
-    // state:{
-    //     type:String
-    // },
-    // country:{
-    //     type:String
-    // }
     
 },{
     timestamps:true

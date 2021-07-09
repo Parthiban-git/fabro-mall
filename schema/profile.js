@@ -32,8 +32,14 @@ const profileschema=new schema({
     state:{
         type:String
     },
-    address:{
+    addressline1:{
         type:String
+    },
+    addressline1:{
+        type:String
+    },
+    pin:{
+        type:Number
     },
     token:{
         type:String

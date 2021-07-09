@@ -26,13 +26,15 @@ signupcheckrouter.post('/signup_check',async(req,res)=>{
                 res.send({status:200,attempts:true})
 
                 var id=userobj[0]._id
-                // var email=userobj[0].email
+                var email=userobj[0].email
                 var name=userobj[0].name
 
                 var contact=dupobj.contact
-                // var country=dupobj.country
-                // var state=dupobj.state
-                // var address=dupobj.address
+                var country=dupobj.country
+                var state=dupobj.state
+                var addressline1=dupobj.addressline1
+                var addressline2=dupobj.addressline2
+                var pin=dupobj.pin
 
                 recentcollection.insertMany({
                     token:id
@@ -40,10 +42,13 @@ signupcheckrouter.post('/signup_check',async(req,res)=>{
                 profile.insertMany({
                     token:id,
                     name,
+                    email,
                     contact,
-                    // country,
-                    // state,
-                    // address
+                    country,
+                    state,
+                    addressline1,
+                    addressline2,
+                    pin
                 })
 
                 cartwishlist.insertMany({
