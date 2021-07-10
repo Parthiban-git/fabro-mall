@@ -116,7 +116,7 @@ addwishlistrouter.post('/add-wishlist',async(req,res)=>{
                 // present in cart , added to wishlist
                 await cartwishlist.updateOne({token},{$set:{cart:cartres}}).then(async()=>{
                     await cartwishlist.findOne({token}).then((obj)=>{
-                        res.send(obj.wishlist)
+                        res.send(obj.cart)
                     })
 
                 })
@@ -127,7 +127,7 @@ addwishlistrouter.post('/add-wishlist',async(req,res)=>{
         if(cartfind==null){
             await cartwishlist.updateOne({token},{$push:{[`wishlist.${name}`]:product[0]}}).then(async()=>{
                 await cartwishlist.findOne({token}).then((obj)=>{
-                    res.send(obj.wishlist)
+                    res.send(obj.cart)
                 })
             })        
         }
