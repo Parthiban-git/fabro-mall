@@ -42,6 +42,7 @@ addtocartrouter.post('/addto-cart',async(req,res)=>{
        {
            console.log("no wishlist itself but add to cart")
                                     product.wishlist=false
+                                    product.cartprice=product.price
                                     await cartwishlist.updateOne({token},{$push:{cart:product}}).then(()=>{
                                         res.send("added to cart not present in wishlist")
                                     })
@@ -89,6 +90,7 @@ addtocartrouter.post('/addto-cart',async(req,res)=>{
                            if(resp.length==0)
                                 {
                                     product.wishlist=false
+                                    product.cartprice=product.price
                                     await cartwishlist.updateOne({token},{$push:{cart:product}}).then(()=>{
                                         res.send("added to cart not present in wishlist")
                                     })
@@ -96,6 +98,7 @@ addtocartrouter.post('/addto-cart',async(req,res)=>{
                             else
                                 {
                                     product.wishlist=true
+                                    product.cartprice=product.price
                                     await cartwishlist.updateOne({token},{$push:{cart:product}}).then(()=>{
                                         res.send("added to cart present in wishlist")
                                     })
