@@ -14,20 +14,16 @@ const Bathroom=require('../schema/Bathroom')
 
 const User=require('../schema/signup')
 const Userdup=require('../schema/signupdup')
-//////////////////////////////////////////////////////
+
 const recentcollection=require('../schema/recentcollection')
 const profile=require('../schema/profile')
-///////////////////////////////////////////////////////////////
-const customer_reviewrouter=new express.Router()
-///////////////////////////////////////////////////////////////////////
 
-var customerid=1000
+const customer_reviewrouter=new express.Router()
 
 customer_reviewrouter.post('/customer_review',async(req,res)=>{
 
-       customerid=1+customerid
-       const token=req.headers.authorization.split(" ")[1]
-
+//        const token=req.headers.authorization.split(" ")[1]
+          const token=req.body.token
 
       const {review,rating,model_number,type,category}=req.body
 
@@ -40,23 +36,20 @@ customer_reviewrouter.post('/customer_review',async(req,res)=>{
              name,
              email,
              img,
-             likes:[],
              rating,
-             review,
-             customerid
+             review
      }
+
+     console.log(obj)
 
       var arr=model_number.match(/\d{3,}/)
       var mod_no=arr[0]
-      var index=101-mod_no
+      var index=mod_no-101
 
-      var collectionobj= await eval(category).findOne({Name:category})
-      var arrobj=collectionobj.products[type]
-
-
-      await eval(category).update({Name:category},{$push:{[`products.${type}.${index}.customer_review`]:obj}}).then(()=>{
-              res.send("review added")
+      await eval(category).updateOne({Name:category},{$push:{[`products.${type}.${index}.customer_review`]:obj}}).then(()=>{
+              //// review added
       })
+
 })
 
 module.exports=customer_reviewrouter
