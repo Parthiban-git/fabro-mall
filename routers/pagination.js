@@ -38,13 +38,13 @@ paginationrouter.post('/pagination',async(req,res)=>{
         })
     }
     else{
-        var len=(arr.length)/12+1
+        var len=(arr.length)/12
         res.send({
             skip:skip,
             limit:limit,
             current:{products:arr.slice(skip,skip+limit),currentpage:Math.ceil(curpage)},
             next:{products:arr.slice(skip+limit,skip+(limit*2)),currentpage:Math.ceil(nxtpage)},
-            totalpages:len
+            totalpages:Math.ceil(len)
         })
     }
 
