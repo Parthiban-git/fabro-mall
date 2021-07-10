@@ -33,8 +33,9 @@ paginationrouter.post('/pagination',async(req,res)=>{
         res.send({
             skip:skip,
             limit:limit,
-            current:{products:arr.slice(skip,skip+limit),currentpage:Math.ceil(curpage),totalpages},
-            next:{products:arr.slice(skip+limit,skip+(limit*2)),currentpage:Math.ceil(nxtpage),totalpages}
+            current:{products:arr.slice(skip,skip+limit),currentpage:Math.ceil(curpage)},
+            next:{products:arr.slice(skip+limit,skip+(limit*2)),currentpage:Math.ceil(nxtpage)},
+            totalpages
         })
     }
     else{
@@ -42,8 +43,9 @@ paginationrouter.post('/pagination',async(req,res)=>{
         res.send({
             skip:skip,
             limit:limit,
-            current:{products:arr.slice(skip,skip+limit),currentpage:Math.ceil(curpage),totalpages},
-            next:{products:arr.slice(skip+limit,skip+(limit*2)),currentpage:Math.ceil(nxtpage),totalpages}
+            current:{products:arr.slice(skip,skip+limit),currentpage:Math.ceil(curpage)},
+            next:{products:arr.slice(skip+limit,skip+(limit*2)),currentpage:Math.ceil(nxtpage)},
+            totalpages
         })
     }
 
