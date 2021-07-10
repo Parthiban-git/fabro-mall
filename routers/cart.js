@@ -30,7 +30,6 @@ addtocartrouter.post('/addto-cart',async(req,res)=>{
 
     else
     {
-         console.log("elseeeeee")
 
         var arr=[]
         var count=0
@@ -65,9 +64,9 @@ addtocartrouter.post('/addto-cart',async(req,res)=>{
                                       cartwishlist.find({[`wishlist.${variable}`]: {$elemMatch:{model_number}}}).then((resarr)=>{
                                         count+=1
     
-                                        console.log("count",count)
-                                        console.log("length",len)
-                                        console.log("resarr",resarr)
+                                        // console.log("count",count)
+                                        // console.log("length",len)
+                                        // console.log("resarr",resarr)
     
                                         arr=[...arr,...resarr] 
                                         if(count===len)
