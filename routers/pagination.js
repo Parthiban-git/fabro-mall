@@ -24,7 +24,6 @@ paginationrouter.post('/pagination',async(req,res)=>{
    await recentcollection.findOne({token:token}).then((arrobj)=>{
        var arr=arrobj.sorted
 
-       var totalpages=arr.length
        var curpage=skip/12+1
        var nxtpage=curpage+1
 
@@ -35,7 +34,7 @@ paginationrouter.post('/pagination',async(req,res)=>{
             limit:limit,
             current:{products:arr.slice(skip,skip+limit),currentpage:Math.ceil(curpage)},
             next:{products:arr.slice(skip+limit,skip+(limit*2)),currentpage:Math.ceil(nxtpage)},
-            totalpages
+            totalpages:len
         })
     }
     else{
@@ -45,7 +44,7 @@ paginationrouter.post('/pagination',async(req,res)=>{
             limit:limit,
             current:{products:arr.slice(skip,skip+limit),currentpage:Math.ceil(curpage)},
             next:{products:arr.slice(skip+limit,skip+(limit*2)),currentpage:Math.ceil(nxtpage)},
-            totalpages
+            totalpages:Math.ceil(len)
         })
     }
 
