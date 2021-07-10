@@ -64,10 +64,6 @@ addtocartrouter.post('/addto-cart',async(req,res)=>{
                                       cartwishlist.find({[`wishlist.${variable}`]: {$elemMatch:{model_number}}}).then((resarr)=>{
                                         count+=1
     
-                                        // console.log("count",count)
-                                        // console.log("length",len)
-                                        // console.log("resarr",resarr)
-    
                                         arr=[...arr,...resarr] 
                                         if(count===len)
                                         {
