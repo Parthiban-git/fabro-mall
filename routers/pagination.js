@@ -44,7 +44,7 @@ paginationrouter.post('/pagination',async(req,res)=>{
             limit:limit,
             current:{products:arr.slice(skip,skip+limit),currentpage:Math.ceil(curpage)},
             next:{products:arr.slice(skip+limit,skip+(limit*2)),currentpage:Math.ceil(nxtpage)},
-            totalpages:Math.ceil(len)
+            totalpages:len
         })
     }
 
