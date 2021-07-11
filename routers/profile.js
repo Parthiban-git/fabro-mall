@@ -81,10 +81,19 @@ editprofilerouter.post('/edit-profile',async(req,res)=>{
         })
     }
 
+    if(addressline2==""){
+
+            await profile.updateOne({token},{$set:{addressline2:""}}).then(()=>{
+                // console.log("updated")
+            })
+        
+    }
+
     if(addressline2){
-        await profile.updateOne({token},{$set:{addressline2}}).then(()=>{
-            // console.log("updated")
-        })
+
+            await profile.updateOne({token},{$set:{addressline2}}).then(()=>{
+                // console.log("updated")
+            })
     }
 
     if(pin){
