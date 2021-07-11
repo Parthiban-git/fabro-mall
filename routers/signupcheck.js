@@ -36,25 +36,57 @@ signupcheckrouter.post('/signup_check',async(req,res)=>{
                 var addressline2=dupobj.addressline2
                 var pin=dupobj.pin
 
-                recentcollection.insertMany({
+
+                const recentcoll=new recentcollection({
                     token:id
-                })
-                profile.insertMany({
-                    token:id,
-                    name,
-                    contact,
-                    country,
-                    state,
-                    addressline1,
-                    addressline2,
-                    pin
                 })
 
-                cartwishlist.insertMany({
-                    token:id
-                }).then(()=>{
-                    console.log("cart wish and rercent and profile")
+                const prof=new profile({
+                    token:id,
+                        name,
+                        contact,
+                        country,
+                        state,
+                        addressline1,
+                        addressline2,
+                        pin
                 })
+
+                const cartwish=new cartwishlist({
+                    token:id
+                })
+
+                recentcoll.save().then(()=>{
+                    prof.save().then(()=>{
+                        cartwish.save().then(()=>{
+                            console.log("saved all of those")
+                        })
+                    })
+                })
+
+                // recentcollection.insertMany({
+                //     token:id
+                // }).then(()=>{
+                //     profile.insertMany({
+                //         token:id,
+                //         name,
+                //         contact,
+                //         country,
+                //         state,
+                //         addressline1,
+                //         addressline2,
+                //         pin
+                //     }).then(()=>{
+                //         cartwishlist.insertMany({
+                //             token:id
+                //         }).then(()=>{
+                //             console.log("cart wish and rercent and profile")
+                //         })
+                        
+                //     })
+                // })
+                
+
                 
                 
             })
