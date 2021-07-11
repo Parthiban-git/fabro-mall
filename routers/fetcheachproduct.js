@@ -14,8 +14,8 @@ const fetcheachproduct=new express.Router()
 const cartwishlist=require('../schema/cart&wishlist')
 
 fetcheachproduct.post('/fetch_each_product',async(req,res)=>{
-    // const token=req.headers.authorization.split(" ")[1]
-    const token=req.body.token
+    const token=req.headers.authorization.split(" ")[1]
+    // const token=req.body.token
     
     const {category,type,model_number}=req.body
 
@@ -34,20 +34,23 @@ fetcheachproduct.post('/fetch_each_product',async(req,res)=>{
 
     if(wishlistpresent==null)
     {
-        console.log(" null")
+        // console.log(" null")
 
         if(cart.length==0)
         {
+
             await eval(category).findOne({Name:category}).then(async(obj)=>{
                 const arr=obj.products[type]
-                res.send({singleproduct:arr[resindex],cart:false,wishlist:false})
+                res.send(arr[resindex])
             })
         }
         if(cart.length>0)
         {
             await eval(category).findOne({Name:category}).then(async(obj)=>{
                 const arr=obj.products[type]
-                res.send({singleproduct:arr[resindex],cart:true,wishlist:false})
+                arr[resindex].wishlist=false
+                arr[resindex].cart=true
+                res.send(arr[resindex])
             })
         }
     }
@@ -57,7 +60,7 @@ fetcheachproduct.post('/fetch_each_product',async(req,res)=>{
 
     if(wishlistpresent!=null)
     {
-        console.log("not null")
+        // console.log("not null")
 
         var wishlistkeys=Object.keys(cartwishobj.wishlist)
 
@@ -72,7 +75,7 @@ fetcheachproduct.post('/fetch_each_product',async(req,res)=>{
                   wishlistkeys.forEach(async(ele)=>{
     
                        var variable=ele
-                       console.log(variable)
+
                          if(ob)
                            { 
                                 cartwishlist.find({[`wishlist.${variable}`]: {$elemMatch:{model_number}}}).then((resarr)=>{
@@ -81,10 +84,10 @@ fetcheachproduct.post('/fetch_each_product',async(req,res)=>{
                                   arr=[...arr,...resarr] 
                                   if(count===len)
                                   {
-                                      console.log(count,"count")
-                                      console.log(len,"len")
+                                    //   console.log(count,"count")
+                                    //   console.log(len,"len")
 
-                                      console.log("arr",arr)
+                                    //   console.log("arr",arr)
                                       resolve(arr)
                                       
                                   }   
@@ -105,14 +108,18 @@ fetcheachproduct.post('/fetch_each_product',async(req,res)=>{
                             {
                                 await eval(category).findOne({Name:category}).then(async(obj)=>{
                                     const arr=obj.products[type]
-                                    res.send({singleproduct:arr[resindex],cart:false,wishlist:false})
+                                    arr[resindex].wishlist=false
+                                    arr[resindex].cart=false
+                                    res.send(arr[resindex])
                                 })
                             }
                             if(cart.length>0)
                             {
                                 await eval(category).findOne({Name:category}).then(async(obj)=>{
                                     const arr=obj.products[type]
-                                    res.send({singleproduct:arr[resindex],cart:true,wishlist:false})
+                                    arr[resindex].wishlist=false
+                                    arr[resindex].cart=true
+                                    res.send(arr[resindex])
                                 })
                             }
                           }
@@ -123,15 +130,18 @@ fetcheachproduct.post('/fetch_each_product',async(req,res)=>{
                             {
                                 await eval(category).findOne({Name:category}).then(async(obj)=>{
                                     const arr=obj.products[type]
-                                    res.send({singleproduct:arr[resindex],cart:false,wishlist:true})
+                                    arr[resindex].wishlist=true
+                                    arr[resindex].cart=false
+                                    res.send(arr[resindex])
                                 })
                             }
                             if(cart.length>0)
                             {
                                 await eval(category).findOne({Name:category}).then(async(obj)=>{
                                     const arr=obj.products[type]
-                                    res.send({singleproduct:arr[resindex],cart:true,wishlist:true})
-                                })
+                                    arr[resindex].wishlist=true
+                                    arr[resindex].cart=true
+                                    res.send(arr[resindex])                                })
                             }
                           }
                  
