@@ -25,9 +25,11 @@ customer_reviewrouter.post('/customer_review',async(req,res)=>{
        const token=req.headers.authorization.split(" ")[1]
         //   const token=req.body.token
 
-      const {review,rating,product,type,category}=req.body
+      const {review,rating,product}=req.body
 
       const model_number=product.model_number
+      const type=product.type
+      const category=product.category
 
       var profileobj=await profile.findOne({token:token})
       const name=profileobj.name
