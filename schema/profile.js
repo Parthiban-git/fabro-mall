@@ -35,7 +35,7 @@ const profileschema=new schema({
     addressline1:{
         type:String
     },
-    addressline1:{
+    addressline2:{
         type:String
     },
     pin:{
