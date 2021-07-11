@@ -26,7 +26,7 @@ signupcheckrouter.post('/signup_check',async(req,res)=>{
                 res.send({status:200,attempts:true})
 
                 var id=userobj[0]._id
-                var email=userobj[0].email
+                // var email=userobj[0].email
                 var name=userobj[0].name
 
                 var contact=dupobj.contact
@@ -42,7 +42,6 @@ signupcheckrouter.post('/signup_check',async(req,res)=>{
                 profile.insertMany({
                     token:id,
                     name,
-                    email,
                     contact,
                     country,
                     state,
