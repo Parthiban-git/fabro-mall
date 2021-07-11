@@ -30,12 +30,12 @@ viewprofilerouter.post('/view-profile',async(req,res)=>{
                 wishlistlen=wishlistlen+(wishcartobj.wishlist[ele].length)
                })
                
-               res.send({name:profobj.name,img:profobj.img,country:profobj.country,state:profobj.state,addressline1:profobj.addressline1,addressline2:profobj.addressline2,cart:totcart,wishlist:wishlistlen})           
+               res.send({name:profobj.name,img:profobj.img,pin:profobj.pin,country:profobj.country,state:profobj.state,addressline1:profobj.addressline1,addressline2:profobj.addressline2,cart:totcart,wishlist:wishlistlen})           
           }
 
           else
           {
-            res.send({name:profobj.name,img:profobj.img,country:profobj.country,state:profobj.state,addressline1:profobj.addressline1,addressline2:profobj.addressline2,cart:totcart,wishlist:0})
+            res.send({name:profobj.name,img:profobj.img,country:profobj.country,pin:profobj.pin,state:profobj.state,addressline1:profobj.addressline1,addressline2:profobj.addressline2,cart:totcart,wishlist:0})
           }
        
 
