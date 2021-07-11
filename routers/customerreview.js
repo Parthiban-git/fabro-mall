@@ -50,7 +50,10 @@ customer_reviewrouter.post('/customer_review',async(req,res)=>{
 
       await eval(category).updateOne({Name:category},{$push:{[`products.${type}.${index}.customer_review`]:obj}}).then(()=>{
               //// review added
-      }).then(()=>{
+      })
+
+      await eval(category).findOne({Name:category}).then(async(obj)=>{
+        const arr=obj.products[type]
         res.send(arr[index])
       })
 
