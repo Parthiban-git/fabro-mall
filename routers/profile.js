@@ -49,39 +49,49 @@ editprofilerouter.post('/edit-profile',async(req,res)=>{
     const token=req.headers.authorization.split(" ")[1]
     // const token=req.body.token
 
-    const {name,contact,country,state,address,img}=req.body
+    const {name,country,state,addressline1,addressline2,img,pin}=req.body
 
     if(img){
         await profile.updateOne({token},{$set:{img}}).then(()=>{
             // console.log("updated")
         })
     }
+
     if(name){
         await profile.updateOne({token},{$set:{name}}).then(()=>{
             // console.log("updated")
         })
     }
-    if(contact){
-        await profile.updateOne({token},{$set:{contact}}).then(()=>{
-            // console.log("updated")
-        })
-    }
+    
     if(country){
         await profile.updateOne({token},{$set:{country}}).then(()=>{
             // console.log("updated")
         })
     }
+
     if(state){
         await profile.updateOne({token},{$set:{state}}).then(()=>{
             // console.log("updated")
         })
     }
-    if(address){
-        await profile.updateOne({token},{$set:{address}}).then(()=>{
+
+    if(addressline1){
+        await profile.updateOne({token},{$set:{addressline1}}).then(()=>{
             // console.log("updated")
         })
     }
 
+    if(addressline2){
+        await profile.updateOne({token},{$set:{addressline2}}).then(()=>{
+            // console.log("updated")
+        })
+    }
+
+    if(pin){
+        await profile.updateOne({token},{$set:{pin}}).then(()=>{
+            // console.log("updated")
+        })
+    }
 
 
     await cartwishlist.findOne({token}).then(async(wishcartobj)=>{
@@ -97,12 +107,12 @@ editprofilerouter.post('/edit-profile',async(req,res)=>{
               wishlistlen=wishlistlen+(wishcartobj.wishlist[ele].length)
              })
              
-             res.send({name:profobj.name,img:profobj.img,country:profobj.country,state:profobj.state,address:profobj.address,mycart:totcart,mywishlist:wishlistlen})           
-        }
+             res.send({name:profobj.name,img:profobj.img,country:profobj.country,pin:profobj.pin,email:profobj.email,state:profobj.state,addressline1:profobj.addressline1,addressline2:profobj.addressline2,contact:profobj.contact,cart:totcart,wishlist:0})
+            }
 
         else
         {
-          res.send({name:profobj.name,img:profobj.img,country:profobj.country,state:profobj.state,address:profobj.address,mycart:totcart,mywishlist:0})
+            res.send({name:profobj.name,img:profobj.img,country:profobj.country,pin:profobj.pin,email:profobj.email,state:profobj.state,addressline1:profobj.addressline1,addressline2:profobj.addressline2,contact:profobj.contact,cart:totcart,wishlist:0})
         }
      
 
