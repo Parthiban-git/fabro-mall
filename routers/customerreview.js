@@ -22,10 +22,12 @@ const customer_reviewrouter=new express.Router()
 
 customer_reviewrouter.post('/customer_review',async(req,res)=>{
 
-//        const token=req.headers.authorization.split(" ")[1]
-          const token=req.body.token
+       const token=req.headers.authorization.split(" ")[1]
+        //   const token=req.body.token
 
-      const {review,rating,model_number,type,category}=req.body
+      const {review,rating,product,type,category}=req.body
+
+      const model_number=product.model_number
 
       var profileobj=await profile.findOne({token:token})
       const name=profileobj.name
@@ -40,14 +42,14 @@ customer_reviewrouter.post('/customer_review',async(req,res)=>{
              review
      }
 
-     console.log(obj)
-
       var arr=model_number.match(/\d{3,}/)
       var mod_no=arr[0]
       var index=mod_no-101
 
       await eval(category).updateOne({Name:category},{$push:{[`products.${type}.${index}.customer_review`]:obj}}).then(()=>{
               //// review added
+      }).then(()=>{
+        res.send(arr[index])
       })
 
 })

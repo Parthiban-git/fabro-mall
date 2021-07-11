@@ -23,7 +23,7 @@ fetcheachproduct.post('/fetch_each_product',async(req,res)=>{
     var index=arr[0]
     var resindex=index-101
 
-    var cartwishobj=await cartwishlist.findOne({token})
+    var cartwishobj=await cartwishlist.findOne({token});
 
 
     var cart=await cartwishlist.find({token,cart:{$elemMatch:{model_number}}})
