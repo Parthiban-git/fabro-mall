@@ -45,7 +45,7 @@ const userschema=new Shema({
     addressline1:{
         type:String
     },
-    addresline2:{
+    addressline2:{
         type:String
     },
     state:{
