@@ -17,9 +17,12 @@ suggestionrouter.post('/suggestions',(req,res)=>{
 
     Fetch.findOne({uniqueid : 1000}).then(async(ob)=>{
 
-         var wishlistobj=await cartwishlist.findOne({token})
 
-         if(wishlistobj.wishlist){
+         const wishlistobj=await cartwishlist.findOne({token})
+
+         var ans=await cartwishlist.findOne({token:token,wishlist:{ $exists: true}})
+         
+         if(ans!=null){
           var wishlistnames=Object.keys(wishlistobj.wishlist)
           res.send({suggestions:ob.suggestions,wishlistnames})
          }

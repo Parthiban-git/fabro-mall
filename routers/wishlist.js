@@ -7,7 +7,7 @@ const Userdup=require('../schema/signupdup')
 const recentcollection=require('../schema/recentcollection')
 const profile=require('../schema/profile')
 const cartwishlist=require('../schema/cart&wishlist')
-const { findOne, listenerCount } = require('../schema/signup')
+// const { findOne, listenerCount } = require('../schema/signup')
 
 const addwishlistrouter=new express.Router()
 const createwishlistrouter=new express.Router()

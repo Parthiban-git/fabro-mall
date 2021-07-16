@@ -1,16 +1,20 @@
 const mongoose=require('mongoose')
 
-const Schema=mongoose.Schema
+const schema=mongoose.Schema
 
-const practiceschema=new Schema({
+const practiceschema=new schema({
     name:{
         type:String
     },        
     age:{
         type:Number
+    },
+    createdAt: {
+         type: Date, expires:60, default: Date.now 
     }
 })
 
 const mong=mongoose.model("practice",practiceschema)
 
-mongoose.exports=mong
+module.exports=mong
+

@@ -3,11 +3,22 @@ require('../database/mongoose')
 
 
 const practice=require('../schema/practice')
-
 const practicerouter=new express.Router()
 
-practicerouter.post('/practice',(req,res)=>{
-    res.send("practice")
+practicerouter.get('/practice',(req,res)=>{
+
+    // practice.createIndex( { "createdAt": 1 }, { expireAfterSeconds: 60 } ,()=>{
+    //     console.log("created a index")
+    // })
+
+    practice.insertMany({
+         name:"parthi",
+         age:20
+    },()=>{
+        console.log("inserted")
+    })
+   
+
 })
 
 
