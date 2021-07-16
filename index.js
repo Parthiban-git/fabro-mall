@@ -27,7 +27,7 @@ const fetchhomerouter=require('./routers/fetchhome')
 
 const fetchproductrouter=require('./routers/fetchproduct')
 const filter_sortrouter=require('./routers/filter_sort')
-const paginationrouter=require('./routers/pagination')
+const paginationrouter=require('./routers/pagination');
 
 const suggestionrouter=require('./routers/suggestions')
 const fetcheachproductrouter=require('./routers/fetcheachproduct')
