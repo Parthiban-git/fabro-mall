@@ -37,6 +37,9 @@ const dummyordersschema=new schema({
     category:{
         type:String
     },
+    productname:{
+        type:String
+    },
     model_number:{
         type:String
     },

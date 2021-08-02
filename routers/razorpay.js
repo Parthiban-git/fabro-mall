@@ -8,10 +8,24 @@ const crypto=require('crypto')
 const dummyorders=require('../schema/dummyorders')
 const orders=require('../schema/orders')
 
+const path=require('path')
+
 const razorpayrouter=new express.Router()
 const razorpayverificationrouter=new express.Router()
 const billingrouter=new express.Router()
 
+const hbs = require('hbs')
+
+const app = express()
+
+// Define paths for Express config
+
+const viewsPath = path.join(__dirname, '../templates/views')
+
+
+// Setup handlebars engine and views location
+app.set('view engine', 'hbs')
+app.set('views', viewsPath)
 
 
 const razorpay=new Razorpay({
@@ -55,6 +69,7 @@ razorpayrouter.post('/razorpay',async(req,res)=>{
             addressline2:profile.addressline2,
             type:product.type,
             category:product.category,
+            productname:product.name,
             model_number:product.model_number,
             price:product.price,
             offer:product.offer,
@@ -85,6 +100,7 @@ razorpayrouter.post('/razorpay',async(req,res)=>{
 })
 
 
+
 razorpayverificationrouter.post('/verification',async(req,res)=>{
 
     const email=req.body.payload.payment.entity.email
@@ -104,15 +120,36 @@ razorpayverificationrouter.post('/verification',async(req,res)=>{
         if(dummyorderfind){
             var orderfind=await orders.findOne({token:dummyorderfind.token})
 
+
             if(orderfind)
-            {                
+            {          
+                
                 dummyorderfind={...dummyorderfind["_doc"],paymentinfo:req.body}
 
-                 await orders.updateOne({token},{$push:{orders:dummyorderfind}}).then(async()=>{
+                console.log(dummyorderfind,"dummy")
+
+                 await orders.updateOne({token:dummyorderfind.token},{$push:{orders:dummyorderfind}}).then(async()=>{
                     await dummyorders.deleteOne({email,orderid}).then(()=>{
-                        console.log("updated in new order and deleted in old")
+                        app.get("/bill",(req,res)=>{
+                            console.log(res)
+
+                            res.render("index",{
+                            username:dummyorderfind.name,
+                            contact:dummyorderfind.contact,
+                            productname:dummyorderfind.contact,
+                            model_number:dummyorderfind.model_number,
+                            orderid:dummyorderfind.orderid,
+                            paymentid:req.body.payload.payment.entity.id,
+                            discountprice:dummyorderfind.discountprice,
+                            deliverycharge:30,
+                            quantity:dummyorderfind.quantity
+            
+                          })
+                        })
                     })
                  })
+
+
             }
 
 
@@ -121,17 +158,35 @@ razorpayverificationrouter.post('/verification',async(req,res)=>{
 
                 dummyorderfind={...dummyorderfind["_doc"],paymentinfo:req.body}
 
+                console.log(dummyorderfind,"dummy")
+
                 orders.insertMany({
                     orders:dummyorderfind,
                     token:dummyorderfind.token
                 })
  
                 await dummyorders.deleteOne({email,orderid}).then(()=>{
-                    console.log("newly inserted in new order and deleted in old")
+                    app.get("/bill",(req,res)=>{
+                        console.log(res)
+
+                        res.render("index",{
+                        username:dummyorderfind.name,
+                        contact:dummyorderfind.contact,
+                        productname:dummyorderfind.contact,
+                        model_number:dummyorderfind.model_number,
+                        orderid:dummyorderfind.orderid,
+                        paymentid:req.body.payload.payment.entity.id,
+                        discountprice:dummyorderfind.discountprice,
+                        deliverycharge:30,
+                        quantity:dummyorderfind.quantity
+        
+                      })
+                    })
                 })
 
             }
         }
+        
 
         res.json({status:"ok"})
 
@@ -143,7 +198,13 @@ razorpayverificationrouter.post('/verification',async(req,res)=>{
         res.status(401).send("unauthorized user ")
     }
 
+    
+
 }) 
+
+
+
+
 
 
 
@@ -152,4 +213,25 @@ billingrouter.post('/billing',async(req,res)=>{
 })
 
 
+app.get("/bill",(req,res)=>{
+    console.log("get")
+
+    res.render("index",{
+    // username:dummyorderfind.name,
+    // contact:dummyorderfind.contact,
+    // productname:dummyorderfind.contact,
+    // model_number:dummyorderfind.model_number,
+    // orderid:dummyorderfind.orderid,
+    // paymentid:req.body.payload.payment.entity.id,
+    // discountprice:dummyorderfind.discountprice,
+    // deliverycharge:30,
+    // quantity:dummyorderfind.quantity
+
+  })
+})
+
+
+
 module.exports={razorpayrouter,razorpayverificationrouter,billingrouter}
+  
+     
