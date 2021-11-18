@@ -38,6 +38,6 @@
     "schema": "^0.2.1",
     "shortid": "^2.2.16",
     "supervisor": "^0.12.0",
-    "validator": "^13.6.0"
+    "validator": "^13.7.0"
   }
 }
