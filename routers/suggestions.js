@@ -12,26 +12,32 @@ const suggestionrouter=new express.Router()
 
 suggestionrouter.post('/suggestions',(req,res)=>{
 
-  const token=req.headers.authorization.split(" ")[1]
-  // const token=req.body.token
+    try
+    {
+      const token=req.headers.authorization.split(" ")[1]
+      //  const token=req.body.token
 
-    Fetch.findOne({uniqueid : 1000}).then(async(ob)=>{
+      Fetch.findOne({uniqueid : 1000}).then(async(ob)=>{
 
 
-         const wishlistobj=await cartwishlist.findOne({token})
+        const wishlistobj=await cartwishlist.findOne({token})
 
-         var ans=await cartwishlist.findOne({token:token,wishlist:{ $exists: true}})
-         
-         if(ans!=null){
-          var wishlistnames=Object.keys(wishlistobj.wishlist)
-          res.send({suggestions:ob.suggestions,wishlistnames})
-         }
+        var ans=await cartwishlist.findOne({token:token,wishlist:{ $exists: true}})
+        
+        if(ans!=null){
+         var wishlistnames=Object.keys(wishlistobj.wishlist)
+         res.send({suggestions:ob.suggestions,wishlistnames})
+        }
 
-         else{
-          res.send({suggestions:ob.suggestions,wishlistnames:[]})
-         }
+        else{
+         res.send({suggestions:ob.suggestions,wishlistnames:[]})
+        }
 
-    })
+       })
+    }
+    catch(error){
+      res.status(400).send(error)
+    }
 
 })
 

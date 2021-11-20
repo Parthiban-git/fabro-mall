@@ -14,9 +14,9 @@ const fetcheachproduct=new express.Router()
 const cartwishlist=require('../schema/cart&wishlist')
 
 fetcheachproduct.post('/fetch_each_product',async(req,res)=>{
-    const token=req.headers.authorization.split(" ")[1]
+    try{
+        const token=req.headers.authorization.split(" ")[1]
     // const token=req.body.token
-    
     const {category,type,model_number}=req.body
 
     var arr=model_number.match(/\d{3,}/)
@@ -25,9 +25,7 @@ fetcheachproduct.post('/fetch_each_product',async(req,res)=>{
 
     var cartwishobj=await cartwishlist.findOne({token});
 
-
     var cart=await cartwishlist.find({token,cart:{$elemMatch:{model_number}}})
-
 
     var wishlistpresent=await cartwishlist.findOne({token,wishlist:{'$exists':true}})
 
@@ -147,13 +145,14 @@ fetcheachproduct.post('/fetch_each_product',async(req,res)=>{
                  
             })
         })
-
-                  
+       
     }
 
-
-
-
+    }
+    catch(error){
+        res.status(400).send(error)
+    }
+    
 })
 
 module.exports=fetcheachproduct
