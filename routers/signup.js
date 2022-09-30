@@ -9,7 +9,7 @@ const { google }=require('googleapis')
 const CLIENT_ID='827040839572-52lgnsq11u3ch9r76tj25tggddtdkgtk.apps.googleusercontent.com'
 const CLIENT_SECRET='aWMBVDdc9IEEQb6-_XALpaoz'
 const REDIRECT_URI='https://developers.google.com/oauthplayground'
-const REFRESH_TOKEN='1//04lrBIEAWDPxjCgYIARAAGAQSNwF-L9IrfiUzJvC1qvrcUnzO6LeP2GSwBF0gfINhYiydujqkJRbVzq0ozW1OglTJjLMzT3qq9os'
+const REFRESH_TOKEN='1//0408qol_-UWBpCgYIARAAGAQSNwF-L9Ir_S1-TyfjR5J6NmO_Z4FA-exZuiqKuDYHl5GfetGiGYO0BGYU7Y97okE_RyoYLyIlT-8'
 const oAuth2Client=new google.auth.OAuth2(CLIENT_ID,CLIENT_SECRET,REDIRECT_URI)
 
 oAuth2Client.setCredentials({refresh_token:REFRESH_TOKEN})
@@ -95,8 +95,6 @@ signuprouter.post('/signup',async(req,res)=>{
                                 })
 
                               res.send("otp sent to user")                        
-                           
-                        
                         })
                       })
                  }
